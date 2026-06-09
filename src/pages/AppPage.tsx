@@ -377,6 +377,14 @@ function VariablesPanel({ vars, userId, onSaved, canEdit }: { vars: UserVariable
   const [yearShifts, setYearShifts] = useState<ShiftDay[]>([])
   const upd = (k: keyof UserVariables, v: number) => setForm((f) => ({ ...f, [k]: v }))
 
+  const saveField = async (patch: Partial<UserVariables>) => {
+    const updated = { ...form, ...patch }
+    setForm(updated)
+    const { error } = await supabase.from('user_variables').update(patch).eq('user_id', userId)
+    if (error) toast.error(error.message)
+    else { onSaved(updated) }
+  }
+
   const save = async () => {
     if (!canEdit) return
     const { error } = await supabase.from('user_variables').update(form).eq('user_id', userId)
