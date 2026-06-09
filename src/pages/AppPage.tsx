@@ -445,7 +445,7 @@ function VariablesPanel({ vars, userId, onSaved, canEdit }: { vars: UserVariable
           <h3 className="font-bold mb-3">Tipo de contrato</h3>
           <div className="flex gap-2">
             {[{ v: false, l: 'Tiempo completo' }, { v: true, l: 'Tiempo parcial' }].map((opt) => (
-              <button key={String(opt.v)} type="button" disabled={!canEdit} onClick={() => setForm((f) => ({ ...f, contrato_parcial: opt.v }))} className={`px-4 py-2 rounded-lg text-sm font-medium border disabled:opacity-60 disabled:cursor-not-allowed ${form.contrato_parcial === opt.v ? 'bg-primary text-primary-foreground border-primary' : 'bg-background border-input'}`}>{opt.l}</button>
+              <button key={String(opt.v)} type="button" disabled={false} onClick={() => setForm((f) => ({ ...f, contrato_parcial: opt.v }))} className={`px-4 py-2 rounded-lg text-sm font-medium border disabled:opacity-60 disabled:cursor-not-allowed ${form.contrato_parcial === opt.v ? 'bg-primary text-primary-foreground border-primary' : 'bg-background border-input'}`}>{opt.l}</button>
             ))}
           </div>
         </div>
