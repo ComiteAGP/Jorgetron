@@ -461,7 +461,7 @@ function VariablesPanel({ vars, userId, onSaved, canEdit }: { vars: UserVariable
           <h3 className="font-bold mb-3">Rol PSM / DSM</h3>
           <div className="flex gap-2 flex-wrap">
             {[{ v: 'none', l: 'Ninguno' }, { v: 'psm', l: 'PSM (175 €/mes)' }, { v: 'dsm', l: 'DSM (300 €/mes)' }].map((opt) => (
-              <button key={opt.v} type="button" disabled={false} onClick={() => setForm((f) => ({ ...f, rol_psm_dsm: opt.v as any }))} className={`px-4 py-2 rounded-lg text-sm font-medium border disabled:opacity-60 disabled:cursor-not-allowed ${(form.rol_psm_dsm ?? 'none') === opt.v ? 'bg-primary text-primary-foreground border-primary' : 'bg-background border-input'}`}>{opt.l}</button>
+              <button key={opt.v} type="button" disabled={false} onClick={() => saveField({ rol_psm_dsm: opt.v as any })} className={`px-4 py-2 rounded-lg text-sm font-medium border disabled:cursor-not-allowed ${(form.rol_psm_dsm ?? 'none') === opt.v ? 'bg-primary text-primary-foreground border-primary' : 'bg-background border-input'}`}>{opt.l}</button>
             ))}
           </div>
         </div>
@@ -472,7 +472,7 @@ function VariablesPanel({ vars, userId, onSaved, canEdit }: { vars: UserVariable
               {g.fields.map((f) => (
                 <label key={f.k} className="block">
                   <span className="text-xs text-muted-foreground">{f.l}</span>
-                  <input type="number" step="0.01" value={form[f.k] as number} readOnly={!canEdit} disabled={!canEdit} onChange={(e) => upd(f.k, parseFloat(e.target.value) || 0)} className="mt-1 w-full px-2 py-1.5 rounded-md border border-input bg-background text-sm disabled:opacity-70 disabled:cursor-not-allowed" />
+                  <input type="number" step="0.01" value={form[f.k] as number} readOnly={!canEdit} onChange={(e) => upd(f.k, parseFloat(e.target.value) || 0)} className="mt-1 w-full px-2 py-1.5 rounded-md border border-input bg-background text-sm disabled:opacity-70 disabled:cursor-not-allowed" />
                 </label>
               ))}
             </div>
