@@ -247,8 +247,11 @@ export function calcMonth(shifts: ShiftDay[], vars: UserVariables, _year: number
 
   const rolPsmDsm: PsmDsmRole = (vars.rol_psm_dsm ?? 'none') as PsmDsmRole
   const trabajaAlgo = diasTrabajadosShifts.length > 0
-  const importePsmBase = (rolPsmDsm === 'psm' && trabajaAlgo) ? (vars.plus_psm ?? 0) * ratioCumplido : 0
-  const importeDsmBase = (rolPsmDsm === 'dsm' && trabajaAlgo) ? (vars.plus_dsm ?? 0) * ratioCumplido : 0
+  const ratioBase = vars.contrato_parcial ? ratioCumplido : 1
+  const importePsmBase = (rolPsmDsm === 'psm' && trabajaAlgo)
+    ? (vars.plus_psm ?? 0) * ratioBase : 0
+  const importeDsmBase = (rolPsmDsm === 'dsm' && trabajaAlgo)
+    ? (vars.plus_dsm ?? 0) * ratioBase : 0
   const tarifaHoraPsm = (vars.plus_psm ?? 0) / HORAS_MES_REFERENCIA
   const tarifaHoraDsm = (vars.plus_dsm ?? 0) / HORAS_MES_REFERENCIA
   const psmHorasMes = sum((d) => d.psmHoras)
