@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 97%;
+    --foreground: 220 15% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 15% 10%;
+    --border: 220 13% 88%;
+    --input: 220 13% 88%;
+    --primary: 220 70% 25%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 14% 93%;
+    --secondary-foreground: 220 15% 25%;
+    --muted: 220 14% 93%;
+    --muted-foreground: 220 10% 50%;
+    --accent: 220 70% 45%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 51%;
+    --ring: 220 70% 45%;
+    --festivo: 45 100% 88%;
+    --vacaciones: 142 60% 88%;
+    --baja: 0 80% 90%;
+    --sunday: 220 30% 94%;
+    --font-display: 'Sora';
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+.bg-festivo { background-color: hsl(var(--festivo)); }
+.bg-vacaciones { background-color: hsl(var(--vacaciones)); }
+.bg-baja { background-color: hsl(var(--baja)); }
+.bg-sunday { background-color: hsl(var(--sunday)); }
