@@ -19,7 +19,13 @@ export default function Landing() {
       </div>
       <nav className="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <span style={{display:'inline-block', backgroundColor:'#CC0000', color:'white', fontWeight:900, fontSize:'18px', fontFamily:'Arial Black, sans-serif', padding:'4px 8px', borderRadius:'4px'}}>C.C.O.O</span>
+         <svg height="40" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+  <rect width="120" height="40" fill="#CC0000"/>
+  <rect x="8" y="8" width="18" height="24" fill="#CC0000" stroke="white" strokeWidth="4"/>
+  <rect x="32" y="8" width="18" height="24" fill="#CC0000" stroke="white" strokeWidth="4"/>
+  <rect x="56" y="8" width="18" height="24" rx="9" fill="#CC0000" stroke="white" strokeWidth="4"/>
+  <rect x="80" y="8" width="18" height="24" rx="9" fill="#CC0000" stroke="white" strokeWidth="4"/>
+</svg>
           <span style={{color:'#CC0000', fontWeight:900, fontSize:'1.5rem', fontFamily:'Arial Black, sans-serif'}}>Jorgetron</span>
         </div>
         <div className="flex gap-2">
