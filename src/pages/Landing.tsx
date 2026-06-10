@@ -20,11 +20,9 @@ export default function Landing() {
 
       <nav className="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
         <div className="flex items-center gap-3 font-bold text-lg" style={{ fontFamily: 'Sora, sans-serif' }}>
-         <svg height="40" width="80" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="100" fill="#CC0000"/><text x="100" y="62" textAnchor="middle" fill="white" fontSize="48" fontWeight="900" fontFamily="Arial Black, sans-serif">CC.OO</text></svg>
-  <circle cx="50" cy="50" r="48" fill="#CC0000"/>
-  <text x="50" y="58" textAnchor="middle" fill="white" fontSize="24" fontWeight="bold" fontFamily="Arial">CC.OO</text>
-</svg>
-<span style={{ color: '#CC0000', fontWeight: 900, fontSize: '1.5rem', fontFamily: 'Arial Black, sans-serif' }}>Jorgetron</span>
+            <span style={{display:'inline-block', backgroundColor:'#CC0000', color:'white', fontWeight:900, fontSize:'18px', fontFamily:'Arial Black, sans-serif', padding:'4px 8px', borderRadius:'4px'}}>CC.OO</span>
+            <span style={{ color: '#CC0000', fontWeight: 900, fontSize: '1.5rem', fontFamily: 'Arial Black, sans-serif' }}>Jorgetron</span>
+          </div>
         </div>
         <div className="flex gap-2">
           <Link to="/login" className="px-4 py-2 text-sm font-medium hover:text-accent transition">Iniciar sesión</Link>
