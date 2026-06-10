@@ -20,7 +20,7 @@ export default function Landing() {
 
       <nav className="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
         <div className="flex items-center gap-3 font-bold text-lg" style={{ fontFamily: 'Sora, sans-serif' }}>
-          <img src="/Logotipo_de_Comisiones_Obreras.svg" alt="CCOO" className="h-8 w-auto" />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/Logotipo_de_Comisiones_Obreras.svg" alt="CCOO" className="h-8 w-auto" />
 <span style={{ color: '#CC0000', fontWeight: 900, fontSize: '1.5rem', fontFamily: 'Arial Black, sans-serif' }}>Jorgetron</span>
         </div>
         <div className="flex gap-2">
