@@ -19,10 +19,9 @@ export default function Landing() {
       </div>
 
       <nav className="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
-        <div className="flex items-center gap-3 font-bold text-lg" style={{ fontFamily: 'Sora, sans-serif' }}>
-            <span style={{display:'inline-block', backgroundColor:'#CC0000', color:'white', fontWeight:900, fontSize:'18px', fontFamily:'Arial Black, sans-serif', padding:'4px 8px', borderRadius:'4px'}}>CC.OO</span>
-            <span style={{ color: '#CC0000', fontWeight: 900, fontSize: '1.5rem', fontFamily: 'Arial Black, sans-serif' }}>Jorgetron</span>
-          </div>
+        <div className="flex items-center gap-3">
+          <span style={{display:'inline-block', backgroundColor:'#CC0000', color:'white', fontWeight:900, fontSize:'18px', fontFamily:'Arial Black, sans-serif', padding:'4px 8px', borderRadius:'4px'}}>CC.OO</span>
+          <span style={{ color: '#CC0000', fontWeight: 900, fontSize: '1.5rem', fontFamily: 'Arial Black, sans-serif' }}>Jorgetron</span>
         </div>
         <div className="flex gap-2">
           <Link to="/login" className="px-4 py-2 text-sm font-medium hover:text-accent transition">Iniciar sesión</Link>
@@ -49,22 +48,3 @@ export default function Landing() {
             <Link to="/signup" className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition">Empezar gratis</Link>
             <Link to="/login" className="px-6 py-3 border border-border rounded-lg font-medium hover:bg-secondary transition">Ya tengo cuenta</Link>
           </div>
-        </div>
-
-        <div className="mt-24 grid md:grid-cols-3 gap-6">
-          {[
-            { icon: Calculator, t: 'Todos los pluses', d: 'Domingos, festivos, nocturnidad, madrugue, partida, extras diurnas y nocturnas, dietas.' },
-            { icon: Clock, t: '% de jornada', d: 'Ideal para tiempo parcial: ajusta tu % y compara horas reales vs objetivo mensual.' },
-            { icon: ShieldCheck, t: 'Privado y seguro', d: 'Cada trabajador ve solo sus datos. Variables configurables por cuenta.' },
-          ].map(({ icon: Icon, t, d }) => (
-            <div key={t} className="rounded-2xl border border-border bg-card p-6">
-              <Icon className="h-6 w-6 text-accent" />
-              <h3 className="mt-4 font-semibold">{t}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{d}</p>
-            </div>
-          ))}
-        </div>
-      </main>
-    </div>
-  )
-}
