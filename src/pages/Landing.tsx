@@ -20,7 +20,7 @@ export default function Landing() {
 
       <nav className="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
         <div className="flex items-center gap-3 font-bold text-lg" style={{ fontFamily: 'Sora, sans-serif' }}>
-          <svg height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <svg height="48" width="48" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
   <circle cx="50" cy="50" r="48" fill="#CC0000"/>
   <text x="50" y="58" textAnchor="middle" fill="white" fontSize="24" fontWeight="bold" fontFamily="Arial">CC.OO</text>
 </svg>
