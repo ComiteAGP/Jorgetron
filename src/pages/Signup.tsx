@@ -2,7 +2,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useState, type FormEvent, useEffect } from 'react'
 import { supabase } from '@/integrations/supabase/client'
 import { useAuth } from '@/contexts/AuthContext'
-import { Plane } from 'lucide-react'
 import { toast } from 'sonner'
 
 export default function Signup() {
@@ -32,8 +31,9 @@ export default function Signup() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <div className="w-full max-w-md">
-        <Link to="/" className="flex items-center gap-2 font-bold text-lg mb-8 justify-center" style={{ fontFamily: 'Sora, sans-serif' }}>
-          <Plane className="h-5 w-5 text-accent" /> Cálculo de Turnos para Afiliados
+        <Link to="/" className="flex items-center gap-3 mb-8 justify-center">
+          <img src="/logo-ccoo.svg" alt="CCOO" style={{height:'36px'}} />
+          <span style={{color:'#CC0000', fontWeight:900, fontSize:'1.3rem', fontFamily:'Arial Black, sans-serif'}}>Jorgetron</span>
         </Link>
         <div className="bg-card border border-border rounded-2xl p-8 shadow-sm">
           <h1 className="text-2xl font-bold mb-1">Crear cuenta</h1>
