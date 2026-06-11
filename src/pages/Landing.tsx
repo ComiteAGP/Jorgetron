@@ -19,13 +19,7 @@ export default function Landing() {
       </div>
       <nav className="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
-         <svg height="40" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
-  <rect width="120" height="40" fill="#CC0000"/>
-  <rect x="8" y="8" width="18" height="24" fill="#CC0000" stroke="white" strokeWidth="4"/>
-  <rect x="32" y="8" width="18" height="24" fill="#CC0000" stroke="white" strokeWidth="4"/>
-  <rect x="56" y="8" width="18" height="24" rx="9" fill="#CC0000" stroke="white" strokeWidth="4"/>
-  <rect x="80" y="8" width="18" height="24" rx="9" fill="#CC0000" stroke="white" strokeWidth="4"/>
-</svg>
+          <img src="/logo-ccoo.svg" alt="CCOO" style={{height:'40px'}} />
           <span style={{color:'#CC0000', fontWeight:900, fontSize:'1.5rem', fontFamily:'Arial Black, sans-serif'}}>Jorgetron</span>
         </div>
         <div className="flex gap-2">
@@ -54,19 +48,3 @@ export default function Landing() {
           </div>
         </div>
         <div className="mt-24 grid md:grid-cols-3 gap-6">
-          {[
-            { icon: Calculator, t: 'Todos los pluses', d: 'Domingos, festivos, nocturnidad, madrugue, partida, extras diurnas y nocturnas, dietas.' },
-            { icon: Clock, t: '% de jornada', d: 'Ideal para tiempo parcial: ajusta tu % y compara horas reales vs objetivo mensual.' },
-            { icon: ShieldCheck, t: 'Privado y seguro', d: 'Cada trabajador ve solo sus datos. Variables configurables por cuenta.' },
-          ].map(({ icon: Icon, t, d }) => (
-            <div key={t} className="rounded-2xl border border-border bg-card p-6">
-              <Icon className="h-6 w-6 text-accent" />
-              <h3 className="mt-4 font-semibold">{t}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{d}</p>
-            </div>
-          ))}
-        </div>
-      </main>
-    </div>
-  )
-}
