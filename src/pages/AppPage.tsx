@@ -114,8 +114,9 @@ export default function AppPage() {
     <div className="min-h-screen bg-background">
       <header className="border-b border-border bg-card/50 backdrop-blur sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4 flex-wrap">
-          <Link to="/" className="flex items-center gap-3 font-bold" style={{ fontFamily: 'Sora, sans-serif' }}>
-            <span>Cálculo de Turnos para Afiliados</span>
+         <Link to="/" className="flex items-center gap-3">
+            <img src="/logo-ccoo.svg" alt="CCOO" style={{height:'32px'}} />
+            <span style={{color:'#CC0000', fontWeight:900, fontSize:'1.2rem', fontFamily:'Arial Black, sans-serif'}}>Jorgetron</span>
           </Link>
           <nav className="flex gap-1 bg-secondary rounded-lg p-1">
             <button onClick={() => setTab('calendar')} className={`px-3 py-1.5 text-sm rounded-md transition ${tab === 'calendar' ? 'bg-card shadow-sm' : ''}`}>
