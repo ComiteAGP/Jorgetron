@@ -1,0 +1,17 @@
+{
+  "name": "Jorgetron",
+  "short_name": "Jorgetron",
+  "description": "Cálculo de turnos y pluses para afiliados CCOO",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f3f4f6",
+  "theme_color": "#CC0000",
+  "icons": [
+    {
+      "src": "/logo-ccoo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
