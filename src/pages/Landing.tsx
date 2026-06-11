@@ -18,9 +18,9 @@ export default function Landing() {
         <div className="absolute top-40 -left-20 h-96 w-96 rounded-full bg-primary/20 blur-3xl" />
       </div>
       <nav className="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-<img src="/logo-ccoo.svg" alt="CCOO" style={{height:'28px'}} />
-          <span style={{color:'#CC0000', fontWeight:900, fontSize:'1.1rem', fontFamily:'Arial Black, sans-serif'}}>Jorgetron</span>
+       <div className="flex flex-col items-start">
+          <img src="/logo-ccoo.svg" alt="CCOO" style={{height:'32px'}} />
+          <span style={{color:'#CC0000', fontWeight:900, fontSize:'1.3rem', fontFamily:'Arial Black, sans-serif', lineHeight:'1'}}>Jorgetron</span>
         </div>
         <div className="flex gap-2">
           <Link to="/login" className="px-4 py-2 text-sm font-medium hover:text-accent transition">Iniciar sesión</Link>
