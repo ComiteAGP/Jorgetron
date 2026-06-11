@@ -48,3 +48,19 @@ export default function Landing() {
           </div>
         </div>
         <div className="mt-24 grid md:grid-cols-3 gap-6">
+          {[
+            { icon: Calculator, t: 'Todos los pluses', d: 'Domingos, festivos, nocturnidad, madrugue, partida, extras diurnas y nocturnas, dietas.' },
+            { icon: Clock, t: '% de jornada', d: 'Ideal para tiempo parcial: ajusta tu % y compara horas reales vs objetivo mensual.' },
+            { icon: ShieldCheck, t: 'Privado y seguro', d: 'Cada trabajador ve solo sus datos. Variables configurables por cuenta.' },
+          ].map(({ icon: Icon, t, d }) => (
+            <div key={t} className="rounded-2xl border border-border bg-card p-6">
+              <Icon className="h-6 w-6 text-accent" />
+              <h3 className="mt-4 font-semibold">{t}</h3>
+              <p className="mt-2 text-sm text-muted-foreground">{d}</p>
+            </div>
+          ))}
+        </div>
+      </main>
+    </div>
+  )
+}
