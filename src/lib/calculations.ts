@@ -252,12 +252,13 @@ export function calcMonth(shifts: ShiftDay[], vars: UserVariables, _year: number
     ? (vars.plus_psm ?? 0) * ratioBase : 0
   const importeDsmBase = (rolPsmDsm === 'dsm' && trabajaAlgo)
     ? (vars.plus_dsm ?? 0) * ratioBase : 0
-  const tarifaHoraPsm = (vars.plus_psm ?? 0) / HORAS_MES_REFERENCIA
+ const tarifaHoraPsm = (vars.plus_psm ?? 0) / HORAS_MES_REFERENCIA
   const tarifaHoraDsm = (vars.plus_dsm ?? 0) / HORAS_MES_REFERENCIA
+  const tarifaHoraDiferencia = Math.max((vars.plus_dsm ?? 0) - (vars.plus_psm ?? 0), 0) / HORAS_MES_REFERENCIA
   const psmHorasMes = sum((d) => d.psmHoras)
   const dsmHorasMes = sum((d) => d.dsmHoras)
   const importePsmDia = rolPsmDsm === 'psm' ? 0 : psmHorasMes * tarifaHoraPsm
-  const importeDsmDia = rolPsmDsm === 'dsm' ? 0 : dsmHorasMes * tarifaHoraDsm
+  const importeDsmDia = rolPsmDsm === 'psm' ? dsmHorasMes * tarifaHoraDiferencia : (rolPsmDsm === 'dsm' ? 0 : dsmHorasMes * tarifaHoraDsm)
   const importePsmDsmTotal = importePsmBase + importeDsmBase + importePsmDia + importeDsmDia
 
   const importeTotal = importePlusDomingo + importePlusFestivo + importePlusNocturnidad + importeMadrugue + importeJornadaPartida + importeExtrasDiurnas + importeExtrasNocturnas + importeDietas + importeTransporte + importeTurnicidad + importePlusParcial + importePsmDsmTotal
