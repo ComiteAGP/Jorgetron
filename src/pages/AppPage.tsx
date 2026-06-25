@@ -293,6 +293,7 @@ function SummaryPanel({ s, v }: { s: ReturnType<typeof calcMonth>; v: UserVariab
           {v.rol_psm_dsm === 'dsm' && <Row label="Rol base DSM" sub={`${s.porcentajeJornadaCumplido.toFixed(1)}% de ${formatEur(v.plus_dsm)}/mes`} value={formatEur(s.importeDsmBase)} />}
           {s.psmHorasMes > 0 && v.rol_psm_dsm !== 'psm' && <Row label="Horas PSM puntuales" sub={`${formatHours(s.psmHorasMes)} × ${formatEur(v.plus_psm / 155.63)}/h`} value={formatEur(s.importePsmDia)} />}
           {s.dsmHorasMes > 0 && v.rol_psm_dsm !== 'dsm' && <Row label="Horas DSM puntuales" sub={`${formatHours(s.dsmHorasMes)} × ${formatEur(v.rol_psm_dsm === 'psm' ? Math.max(v.plus_dsm - v.plus_psm, 0) / 155.63 : v.plus_dsm / 155.63)}/h`} value={formatEur(s.importeDsmDia)} />}
+        </>
       )}
       {s.vacacionesDias > 0 && <div className="mt-3 text-xs text-muted-foreground">{s.vacacionesDias} días de vacaciones</div>}
     </aside>
