@@ -170,7 +170,7 @@ export default function AppPage() {
         )}
 
         {tab === 'variables' && vars && (
-          <VariablesPanel vars={vars} userId={session.user.id} onSaved={(v) => setVars(v)} canEdit={isAdmin} />
+          <VariablesPanel vars={vars} userId={targetUserId!} onSaved={(v) => setVars(v)} canEdit={isAdmin} />
         )}
 
         {tab === 'admin' && isAdmin && (
