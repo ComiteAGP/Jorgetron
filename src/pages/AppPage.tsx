@@ -391,11 +391,12 @@ function VariablesPanel({ vars, userId, onSaved, canEdit }: { vars: UserVariable
     onSaved(updated)
   }
 
-  const save = async () => {
+const save = async () => {
     if (!canEdit) return
-    const { error } = await supabase.from('user_variables').update(form).eq('user_id', userId)
+    const { contrato_parcial, rol_psm_dsm, ...sharedFields } = form
+    const { error } = await supabase.from('user_variables').update(sharedFields).neq('user_id', '00000000-0000-0000-0000-000000000000')
     if (error) toast.error(error.message)
-    else { toast.success('Variables guardadas'); onSaved(form) }
+    else { toast.success('Variables guardadas para todos los trabajadores'); onSaved(form) }
   }
 
   useEffect(() => {
