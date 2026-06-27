@@ -170,7 +170,7 @@ export default function AppPage() {
         )}
 
         {tab === 'variables' && vars && (
-          <VariablesPanel vars={vars} userId={targetUserId!} onSaved={(v) => setVars(v)} canEdit={isAdmin} />
+          <VariablesPanel vars={vars} userId={targetUserId!} templates={templates} patterns={patterns} onSaved={(v) => setVars(v)} canEdit={isAdmin} />
         )}
 
         {tab === 'admin' && isAdmin && (
@@ -372,7 +372,7 @@ function TimeField({ label, v, onChange }: { label: string; v?: string | null; o
   )
 }
 
-function VariablesPanel({ vars, userId, onSaved, canEdit }: { vars: UserVariables; userId: string; onSaved: (v: UserVariables) => void; canEdit: boolean }) {
+function VariablesPanel({ vars, userId, templates, patterns, onSaved, canEdit }: { vars: UserVariables; userId: string; templates: ShiftTemplate[]; patterns: ShiftPattern[]; onSaved: (v: UserVariables) => void; canEdit: boolean }) {
   const [form, setForm] = useState(vars)
   const [year, setYear] = useState(new Date().getFullYear())
   const [yearShifts, setYearShifts] = useState<ShiftDay[]>([])
@@ -406,21 +406,20 @@ const save = async () => {
     })()
   }, [userId, year])
 
+  const tplMap = useMemo(() => new Map(templates.map((t) => [t.id, t])), [templates])
   const yearStats = useMemo(() => {
     const map = new Map(yearShifts.map((s) => [s.shift_date, s]))
     let totalHoras = 0
     for (let m = 0; m < 12; m++) {
       const lastDay = new Date(year, m + 1, 0).getDate()
-      const all: ShiftDay[] = []
-      for (let d = 1; d <= lastDay; d++) {
-        const date = `${year}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`
-        all.push(map.get(date) ?? { shift_date: date })
-      }
-      totalHoras += calcMonth(all, vars, year, m).totalHoras
+      const dates: string[] = []
+      for (let d = 1; d <= lastDay; d++) dates.push(`${year}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`)
+      const merged = mergeDays(dates, map, patterns, tplMap)
+      totalHoras += calcMonth(merged.map((mm) => mm.day), vars, year, m).totalHoras
     }
     const objetivo = vars.jornada_anual_horas * (vars.porcentaje_jornada / 100)
     return { totalHoras, objetivo, pct: objetivo > 0 ? (totalHoras / objetivo) * 100 : 0 }
-  }, [yearShifts, vars, year])
+  }, [yearShifts, patterns, tplMap, vars, year])
 
   const groups = [
     { title: 'Pluses por hora', fields: [{ k: 'plus_domingo' as keyof UserVariables, l: 'Plus domingo' }, { k: 'plus_festivo' as keyof UserVariables, l: 'Plus festivo' }, { k: 'plus_nocturnidad' as keyof UserVariables, l: 'Plus nocturnidad' }] },
