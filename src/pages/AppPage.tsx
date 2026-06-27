@@ -407,7 +407,7 @@ const save = async () => {
   }, [userId, year])
 
   const tplMap = useMemo(() => new Map(templates.map((t) => [t.id, t])), [templates])
-  const yearStats = useMemo(() => {
+const yearStats = useMemo(() => {
     const map = new Map(yearShifts.map((s) => [s.shift_date, s]))
     let totalHoras = 0
     for (let m = 0; m < 12; m++) {
@@ -415,7 +415,9 @@ const save = async () => {
       const dates: string[] = []
       for (let d = 1; d <= lastDay; d++) dates.push(`${year}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`)
       const merged = mergeDays(dates, map, patterns, tplMap)
-      totalHoras += calcMonth(merged.map((mm) => mm.day), vars, year, m).totalHoras
+      const monthSummary = calcMonth(merged.map((mm) => mm.day), vars, year, m)
+      const vacacionesHoras = monthSummary.days.filter((d) => d.isVacaciones).reduce((a, d) => a + d.workedHours, 0)
+      totalHoras += monthSummary.totalHoras - vacacionesHoras
     }
     const objetivo = vars.jornada_anual_horas * (vars.porcentaje_jornada / 100)
     return { totalHoras, objetivo, pct: objetivo > 0 ? (totalHoras / objetivo) * 100 : 0 }
