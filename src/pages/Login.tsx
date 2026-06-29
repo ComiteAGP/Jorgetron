@@ -43,10 +43,13 @@ export default function Login() {
               <label className="text-sm font-medium block mb-1.5">Contraseña</label>
               <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-3 py-2 rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-ring" />
             </div>
-            <button type="submit" disabled={loading} className="w-full py-2.5 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition disabled:opacity-50">
+<button type="submit" disabled={loading} className="w-full py-2.5 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition disabled:opacity-50">
               {loading ? 'Entrando…' : 'Entrar'}
             </button>
           </form>
+          <p className="mt-4 text-sm text-center">
+            <Link to="/reset-password" className="text-accent font-medium hover:underline">¿Olvidaste tu contraseña?</Link>
+          </p>
           <p className="mt-6 text-sm text-center text-muted-foreground">
             ¿No tienes cuenta?{' '}
             <Link to="/signup" className="text-accent font-medium hover:underline">Crea una</Link>
