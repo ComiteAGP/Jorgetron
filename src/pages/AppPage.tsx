@@ -490,7 +490,16 @@ const yearStats = useMemo(() => {
           </div>
         ))}
       </div>
-      {canEdit && <button onClick={save} className="mt-6 px-5 py-2.5 bg-primary text-primary-foreground rounded-lg font-medium">Guardar cambios</button>}
+     {canEdit && <button onClick={save} className="mt-6 px-5 py-2.5 bg-primary text-primary-foreground rounded-lg font-medium">Guardar cambios</button>}
+      
+      <div className="mt-12 border-t border-border pt-6">
+        <h3 className="text-sm font-bold text-destructive mb-2">Zona de peligro</h3>
+        <p className="text-xs text-muted-foreground mb-3">Si quieres eliminar tu cuenta y todos tus datos, envíanos un email y lo gestionaremos en un plazo máximo de 72 horas.</p>
+        <a href={`mailto:comiteazulagp@gmail.com?subject=Solicitud de baja - Jorgetron&body=Hola, solicito la eliminación de mi cuenta y todos mis datos de la aplicación Jorgetron. Mi email es: ${userId}`}
+          className="inline-block px-4 py-2 text-sm rounded-lg border border-destructive text-destructive hover:bg-destructive/10 transition">
+          Solicitar eliminación de cuenta
+        </a>
+      </div>
     </div>
   )
 }
