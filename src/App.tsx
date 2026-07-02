@@ -6,6 +6,7 @@ import Login from '@/pages/Login'
 import Signup from '@/pages/Signup'
 import AppPage from '@/pages/AppPage'
 import ResetPassword from '@/pages/ResetPassword'
+import Privacy from '@/pages/Privacy'
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/app" element={<AppPage />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/privacy" element={<Privacy />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
