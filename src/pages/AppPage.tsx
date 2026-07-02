@@ -415,9 +415,12 @@ const yearStats = useMemo(() => {
       const dates: string[] = []
       for (let d = 1; d <= lastDay; d++) dates.push(`${year}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`)
       const merged = mergeDays(dates, map, patterns, tplMap)
-      const monthSummary = calcMonth(merged.map((mm) => mm.day), vars, year, m)
+     const monthSummary = calcMonth(merged.map((mm) => mm.day), vars, year, m)
       const vacacionesHoras = monthSummary.days.filter((d) => d.isVacaciones).reduce((a, d) => a + d.workedHours, 0)
-      totalHoras += monthSummary.totalHoras - vacacionesHoras
+      const horasMes = vars.contrato_parcial 
+        ? monthSummary.totalHoras - vacacionesHoras
+        : monthSummary.horasJornada - vacacionesHoras
+      totalHoras += horasMes
     }
     const objetivo = vars.jornada_anual_horas * (vars.porcentaje_jornada / 100)
     return { totalHoras, objetivo, pct: objetivo > 0 ? (totalHoras / objetivo) * 100 : 0 }
