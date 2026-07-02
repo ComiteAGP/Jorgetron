@@ -177,10 +177,23 @@ export default function AppPage() {
           <div className="bg-card border border-border rounded-2xl p-6">
             <h2 className="text-xl font-bold mb-4">Trabajadores</h2>
             <div className="space-y-2">
-              {allUsers.map((u) => (
+             {allUsers.map((u) => (
                 <div key={u.id} className="flex items-center justify-between p-3 border border-border rounded-lg">
                   <div>{u.full_name || '(sin nombre)'}</div>
-                  <button onClick={() => { setViewUserId(u.id); setTab('calendar') }} className="text-sm text-accent font-medium hover:underline">Ver turnos →</button>
+                  <div className="flex gap-3">
+                    <button onClick={() => { setViewUserId(u.id); setTab('calendar') }} className="text-sm text-accent font-medium hover:underline">Ver turnos →</button>
+                    <button onClick={async () => {
+                      if (!confirm(`¿Borrar a ${u.full_name}? Se eliminarán todos sus turnos y datos.`)) return
+                      await supabase.from('shifts').delete().eq('user_id', u.id)
+                      await supabase.from('shift_templates').delete().eq('user_id', u.id)
+                      await supabase.from('shift_patterns').delete().eq('user_id', u.id)
+                      await supabase.from('user_variables').delete().eq('user_id', u.id)
+                      await supabase.from('user_roles').delete().eq('user_id', u.id)
+                      await supabase.from('profiles').delete().eq('id', u.id)
+                      setAllUsers(prev => prev.filter(x => x.id !== u.id))
+                      toast.success(`${u.full_name} eliminado correctamente`)
+                    }} className="text-sm text-destructive font-medium hover:underline">Eliminar</button>
+                  </div>
                 </div>
               ))}
               {allUsers.length === 0 && <p className="text-sm text-muted-foreground">No hay trabajadores aún.</p>}
