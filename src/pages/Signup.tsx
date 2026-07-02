@@ -8,6 +8,7 @@ export default function Signup() {
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [privacy, setPrivacy] = useState(false)
   const [loading, setLoading] = useState(false)
   const { session } = useAuth()
   const navigate = useNavigate()
@@ -51,7 +52,11 @@ export default function Signup() {
               <label className="text-sm font-medium block mb-1.5">Contraseña</label>
               <input type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-3 py-2 rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-ring" />
             </div>
-            <button type="submit" disabled={loading} className="w-full py-2.5 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition disabled:opacity-50">
+            <label className="flex items-start gap-2 text-sm">
+              <input type="checkbox" checked={privacy} onChange={(e) => setPrivacy(e.target.checked)} className="mt-1" />
+              <span>He leído y acepto la <Link to="/privacy" className="text-accent font-medium hover:underline">política de privacidad</Link></span>
+            </label>
+            <button type="submit" disabled={loading || !privacy} className="w-full py-2.5 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition disabled:opacity-50">
               {loading ? 'Creando…' : 'Crear cuenta'}
             </button>
           </form>
