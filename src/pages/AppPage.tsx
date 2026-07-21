@@ -245,7 +245,10 @@ function CalendarGrid({ year, month, merged, onPick }: { year: number; month: nu
                 {m?.isAuto && m.resolved && <span className="text-[9px] font-bold text-white px-1 rounded" style={{ backgroundColor: m.resolved.color }}>{m.resolved.code}</span>}
               </div>
               {s?.is_baja ? (
-                <div className="text-[10px] font-semibold mt-1">Baja</div>
+                <>
+                  <div className="text-[10px] font-semibold mt-1">Baja</div>
+                  {s.entry1 && <div className="text-[10px] text-foreground/70 leading-tight">{s.entry1}–{s.real_exit1 || s.exit1}</div>}
+                </>
               ) : s?.is_vacaciones ? (
                 <>
                   <div className="text-[10px] font-semibold mt-1">Vac.</div>
