@@ -102,10 +102,17 @@ export default function AppPage() {
 
   const onDeleteShift = async (date: string) => {
     if (!session) return
-    await supabase.from('shifts').delete().eq('user_id', session.user.id).eq('shift_date', date)
-    setShifts((prev) => prev.filter((s) => s.shift_date !== date))
+    const isAuto = !shifts.some((s) => s.shift_date === date)
+    if (isAuto) {
+      const empty: ShiftDay = { shift_date: date, entry1: null, exit1: null, real_exit1: null, entry2: null, exit2: null, real_exit2: null }
+      await supabase.from('shifts').upsert({ ...empty, user_id: session.user.id }, { onConflict: 'user_id,shift_date' })
+      setShifts((prev) => [...prev.filter((s) => s.shift_date !== date), empty])
+    } else {
+      await supabase.from('shifts').delete().eq('user_id', session.user.id).eq('shift_date', date)
+      setShifts((prev) => prev.filter((s) => s.shift_date !== date))
+    }
     setEditingDate(null)
-    toast.success('Día borrado')
+    toast.success(isAuto ? 'Día vaciado' : 'Día borrado')
   }
 
   if (loading || !session) return <div className="min-h-screen flex items-center justify-center text-muted-foreground">Cargando…</div>
