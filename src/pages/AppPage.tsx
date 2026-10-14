@@ -8,6 +8,8 @@ import { mergeDays, type ShiftPattern, type ShiftTemplate } from '@/lib/patterns
 import { PatternsPanel } from '@/components/PatternsPanel'
 import { ChevronLeft, ChevronRight, Settings, LogOut, Users, Calendar, Repeat } from 'lucide-react'
 import { toast } from 'sonner'
+import jsPDF from 'jspdf'
+import autoTable from 'jspdf-autotable'
 
 const MONTHS = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
 const DOW = ['L','M','X','J','V','S','D']
