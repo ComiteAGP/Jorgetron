@@ -101,7 +101,83 @@ export default function AppPage() {
     })
     setEditingDate(null)
   }
+  const downloadPDF = () => {
+    if (!summary || !vars) return
+    const doc = new jsPDF()
+    const monthName = MONTHS[month]
+    
+    // Título
+    doc.setFontSize(18)
+    doc.setTextColor(204, 0, 0)
+    doc.text('Jorgetron - CCOO', 14, 20)
+    doc.setTextColor(0, 0, 0)
+    doc.setFontSize(14)
+    doc.text(`Resumen de ${monthName} ${year}`, 14, 30)
+    doc.setFontSize(10)
+    doc.text(`Jornada al ${vars.porcentaje_jornada}%`, 14, 38)
 
+    // Cuadrante del mes
+    doc.setFontSize(12)
+    doc.text('Cuadrante del mes', 14, 50)
+    
+    const lastDay = new Date(year, month + 1, 0).getDate()
+    const calendarData: string[][] = []
+    for (let d = 1; d <= lastDay; d++) {
+      const date = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`
+      const dayOfWeek = new Date(date + 'T00:00:00').toLocaleDateString('es-ES', { weekday: 'short' })
+      const merged = mergedMonth.find(m => m.day.shift_date === date)
+      const s = merged?.day
+      let turno = ''
+      if (s?.is_baja) turno = 'Baja'
+      else if (s?.is_vacaciones) turno = 'Vacaciones'
+      else if (s?.entry1 && s?.exit1) turno = `${s.entry1} - ${s.real_exit1 || s.exit1}`
+      else if (merged?.isAuto && merged?.resolved) turno = `${merged.resolved.entry1 || ''} - ${merged.resolved.exit1 || ''} (${merged.resolved.code})`
+      else turno = '-'
+      calendarData.push([String(d), dayOfWeek, turno])
+    }
+    
+    autoTable(doc, {
+      startY: 55,
+      head: [['Día', 'Día semana', 'Turno']],
+      body: calendarData,
+      styles: { fontSize: 8 },
+      headStyles: { fillColor: [26, 54, 126] },
+      columnStyles: { 0: { cellWidth: 15 }, 1: { cellWidth: 25 }, 2: { cellWidth: 80 } },
+    })
+
+    // Resumen de variables
+    const finalY = (doc as any).lastAutoTable.finalY + 10
+    doc.setFontSize(12)
+    doc.text('Resumen de pluses', 14, finalY)
+    
+    const variablesData = [
+      ['Total a cobrar (variables)', `${summary.importeTotal.toFixed(2)} €`],
+      ['Horas jornada', formatHours(summary.horasJornada)],
+      ['Objetivo mensual', formatHours(summary.horasMensualesObjetivo)],
+      ['% jornada cumplido', `${summary.porcentajeJornadaCumplido.toFixed(1)}%`],
+      ['Plus domingo', `${formatHours(summary.horasDomingo)} × ${vars.plus_domingo}€ = ${summary.importePlusDomingo.toFixed(2)}€`],
+      ['Plus festivo', `${formatHours(summary.horasFestivo)} × ${vars.plus_festivo}€ = ${summary.importePlusFestivo.toFixed(2)}€`],
+      ['Nocturnidad', `${formatHours(summary.horasNocturnas)} × ${vars.plus_nocturnidad}€ = ${summary.importePlusNocturnidad.toFixed(2)}€`],
+      ['Madrugue', `${summary.numMadrugues} días × ${vars.madrugue}€ = ${summary.importeMadrugue.toFixed(2)}€`],
+      ['Jornada partida', `${summary.numJornadasPartidas} días × ${vars.jornada_partida}€ = ${summary.importeJornadaPartida.toFixed(2)}€`],
+      ['Perentoria diurna', `${formatHours(summary.extrasDiurnas)} × ${vars.extra_diurna_perentoria}€ = ${summary.importeExtrasDiurnas.toFixed(2)}€`],
+      ['Perentoria nocturna', `${formatHours(summary.extrasNocturnas)} × ${vars.extra_nocturna_perentoria}€ = ${summary.importeExtrasNocturnas.toFixed(2)}€`],
+      ['Dietas', `${summary.numDietas} × ${vars.dieta}€ = ${summary.importeDietas.toFixed(2)}€`],
+      ['Transporte', `${summary.diasTrabajados} días × ${vars.transporte}€ = ${summary.importeTransporte.toFixed(2)}€`],
+      ['Turnicidad', `Nivel ${summary.nivelTurnicidad} = ${summary.importeTurnicidad.toFixed(2)}€`],
+    ]
+
+    autoTable(doc, {
+      startY: finalY + 5,
+      body: variablesData,
+      styles: { fontSize: 9 },
+      columnStyles: { 0: { cellWidth: 60 }, 1: { cellWidth: 100 } },
+      alternateRowStyles: { fillColor: [245, 245, 245] },
+    })
+
+    doc.save(`Jorgetron_${monthName}_${year}.pdf`)
+    toast.success('PDF descargado')
+  }
   const onDeleteShift = async (date: string) => {
     if (!session) return
     const isAuto = !shifts.some((s) => s.shift_date === date)
