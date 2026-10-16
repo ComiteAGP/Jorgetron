@@ -241,7 +241,8 @@ export default function AppPage() {
                 <h2 className="text-xl font-bold w-44 text-center">{MONTHS[month]} {year}</h2>
                 <button onClick={() => { const m = month + 1; if (m > 11) { setMonth(0); setYear(y => y + 1) } else setMonth(m) }} className="p-2 hover:bg-secondary rounded-lg"><ChevronRight className="h-4 w-4" /></button>
               </div>
-              <button onClick={() => { setYear(today.getFullYear()); setMonth(today.getMonth()) }} className="text-sm text-muted-foreground hover:text-foreground">Hoy</button>
+                            <button onClick={() => { setYear(today.getFullYear()); setMonth(today.getMonth()) }} className="text-sm text-muted-foreground hover:text-foreground">Hoy</button>
+              <button onClick={downloadPDF} className="text-sm bg-primary text-primary-foreground px-3 py-1.5 rounded-lg hover:opacity-90 transition">⬇ PDF</button>
             </div>
             <div className="grid lg:grid-cols-[1fr_360px] gap-6">
               <CalendarGrid year={year} month={month} merged={mergedMonth} onPick={(d) => !readOnly && setEditingDate(d)} />
