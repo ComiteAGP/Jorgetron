@@ -419,7 +419,9 @@ function DayEditor({ shift, isAuto, onClose, onSave, onDelete }: { shift: ShiftD
             <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={!!form.is_vacaciones} onChange={(e) => upd('is_vacaciones', e.target.checked)} /> Vacaciones</label>
             <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={!!form.is_dia_extra} onChange={(e) => upd('is_dia_extra', e.target.checked)} /> Día extra</label>
             <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={!!form.is_baja} onChange={(e) => upd('is_baja', e.target.checked)} /> Baja</label>
+            <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={!!form.is_cambio_turno} onChange={(e) => upd('is_cambio_turno', e.target.checked)} /> Cambio de turno</label>
           </div>
+          {form.is_cambio_turno && <p className="text-xs text-muted-foreground">Cambio de turno entre compañeros: se cobra igual, pero este turno no cuenta para el turnicidad.</p>}
           {form.is_vacaciones && <p className="text-xs text-muted-foreground">En vacaciones se cobra el turno (cuenta para la jornada) pero no se generan variables.</p>}
           <div>
             <h4 className="text-xs font-bold uppercase text-muted-foreground mb-2">Bloque 1</h4>
