@@ -320,10 +320,11 @@ function CalendarGrid({ year, month, merged, onPick }: { year: number; month: nu
           const isFes = isHoliday(c.date)
           const hasShift = s && (s.entry1 || s.is_vacaciones || s.is_baja)
           let bg = ''
-          if (s?.is_baja) bg = 'bg-baja'
-          else if (s?.is_vacaciones) bg = 'bg-vacaciones'
-          else if (isFes) bg = 'bg-festivo'
-          else if (isSun) bg = 'bg-sunday'
+if (s?.is_baja) bg = 'bg-baja'
+else if (s?.is_vacaciones) bg = 'bg-vacaciones'
+else if (s?.is_cambio_turno) bg = 'bg-gray-300'
+else if (isFes) bg = 'bg-festivo'
+else if (isSun) bg = 'bg-pink-100'
           return (
             <button key={c.date} onClick={() => onPick(c.date)} className={`relative aspect-square rounded-lg border border-border text-left p-1.5 hover:border-accent transition ${bg} ${hasShift && !m?.isAuto ? 'ring-1 ring-accent/40' : ''}`} style={m?.isAuto && m.resolved ? { borderColor: m.resolved.color, borderWidth: 2 } : undefined}>
               <div className="flex items-start justify-between">
