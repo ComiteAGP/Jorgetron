@@ -14,6 +14,7 @@ export interface ShiftDay {
   is_vacaciones?: boolean
   is_dia_extra?: boolean
   is_baja?: boolean
+  is_cambio_turno?: boolean
   psm_dsm?: PsmDsmRole
   psm_dsm_horas?: number | null
 }
@@ -212,15 +213,19 @@ export function calcMonth(shifts: ShiftDay[], vars: UserVariables, _year: number
   const numDietas = days.filter((d) => d.dieta).length
   const vacacionesDias = days.filter((d) => d.isVacaciones).length
 
+  // Días trabajados: excluye vacaciones y bajas
   const diasTrabajadosShifts = shifts.filter((s, i) => {
     const d = days[i]
     if (d.isVacaciones) return false
+    if (s.is_baja) return false
     return !!((s.entry1 && s.exit1) || (s.entry2 && s.exit2))
   })
   const diasTrabajados = diasTrabajadosShifts.length
 
+  // Turnos distintos para turnicidad: además excluye los cambios de turno entre compañeros
   const turnosSet = new Set<string>()
   for (const s of diasTrabajadosShifts) {
+    if (s.is_cambio_turno) continue
     turnosSet.add([s.entry1 ?? '', s.exit1 ?? '', s.entry2 ?? '', s.exit2 ?? ''].join('|'))
   }
   const numTurnosDistintos = turnosSet.size
@@ -252,7 +257,7 @@ export function calcMonth(shifts: ShiftDay[], vars: UserVariables, _year: number
     ? (vars.plus_psm ?? 0) * ratioBase : 0
   const importeDsmBase = (rolPsmDsm === 'dsm' && trabajaAlgo)
     ? (vars.plus_dsm ?? 0) * ratioBase : 0
- const tarifaHoraPsm = (vars.plus_psm ?? 0) / HORAS_MES_REFERENCIA
+  const tarifaHoraPsm = (vars.plus_psm ?? 0) / HORAS_MES_REFERENCIA
   const tarifaHoraDsm = (vars.plus_dsm ?? 0) / HORAS_MES_REFERENCIA
   const tarifaHoraDiferencia = Math.max((vars.plus_dsm ?? 0) - (vars.plus_psm ?? 0), 0) / HORAS_MES_REFERENCIA
   const psmHorasMes = sum((d) => d.psmHoras)
