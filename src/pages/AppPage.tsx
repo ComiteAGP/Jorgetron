@@ -320,7 +320,7 @@ function CalendarGrid({ year, month, merged, onPick }: { year: number; month: nu
           const isFes = isHoliday(c.date)
           const hasShift = s && (s.entry1 || s.is_vacaciones || s.is_baja)
           let bg = ''
-if (s?.is_baja) bg = 'bg-baja'
+if (s?.is_baja) bg = 'bg-violet-200'
 else if (s?.is_vacaciones) bg = 'bg-vacaciones'
 else if (s?.is_cambio_turno) bg = 'bg-gray-300'
 else if (isFes) bg = 'bg-festivo'
