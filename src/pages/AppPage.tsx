@@ -498,7 +498,19 @@ function VariablesPanel({ vars, userId, templates, patterns, onSaved, canEdit }:
 
 const save = async () => {
     if (!canEdit) return
-    const { contrato_parcial, rol_psm_dsm, ...sharedFields } = form
+    const SHARED_KEYS: (keyof UserVariables)[] = [
+      'plus_domingo', 'plus_festivo', 'plus_nocturnidad',
+      'madrugue', 'jornada_partida', 'dieta', 'transporte',
+      'extra_diurna_perentoria', 'extra_nocturna_perentoria',
+      'extra_diurna', 'extra_nocturna',
+      'turnicidad_2', 'turnicidad_3', 'turnicidad_4', 'turnicidad_5', 'turnicidad_parcial',
+      'plus_psm', 'plus_dsm',
+      'jornada_anual_horas', 'salario_anual', 'porcentaje_jornada',
+    ]
+    const sharedFields: Partial<UserVariables> = {}
+    for (const k of SHARED_KEYS) {
+      if (form[k] !== undefined) (sharedFields as any)[k] = form[k]
+    }
     const { error } = await supabase.from('user_variables').update(sharedFields).neq('user_id', '00000000-0000-0000-0000-000000000000')
     if (error) toast.error(error.message)
     else { toast.success('Variables guardadas para todos los trabajadores'); onSaved(form) }
